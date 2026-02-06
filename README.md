@@ -20,3 +20,6 @@ https://angular.dev/tools/cli
 
 # Creating angular project 
 ng new first-angular-app --no-zoneless
+
+# command for creating components 
+ng generate component header
