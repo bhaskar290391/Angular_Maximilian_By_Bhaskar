@@ -11,9 +11,17 @@
 -->
 
 <!-- Signal -->
-<div>
+<!-- <div>
   <button (click)="onSelectedUser()">
     <img [src]="imagePath()" [alt]="selectedUser().name" />
     <span>{{ selectedUser().name }} </span>
+  </button>
+</div> -->
+
+<!-- Using input() anotation -->
+<div>
+  <button (click)="onSelectedUser()">
+    <img [src]="imagePath" [alt]="name" />
+    <span>{{ name }} </span>
   </button>
 </div>
