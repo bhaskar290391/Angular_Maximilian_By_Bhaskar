@@ -46,16 +46,6 @@ export class UserComponent {
 
   /*
 
-  //Using Input  decorator
-  @Input({ required: true }) avatar!: string;
-  @Input({ required: true }) name!: string;
-
-  get imagePath() {
-    return 'assets/users/' + this.avatar;
-  }
-   
-  */
-
   //Using input decorator by decorator
   avatar = input.required();
   name = input.required();
@@ -63,5 +53,15 @@ export class UserComponent {
   imagePath = computed(() => {
     return 'assets/users/' + this.avatar();
   });
+
+  */
+
+  //Using Input  decorator
+  @Input({ required: true }) avatar!: string;
+  @Input({ required: true }) name!: string;
+
+  get imagePath() {
+    return 'assets/users/' + this.avatar;
+  }
   onSelectedUser() {}
 }
