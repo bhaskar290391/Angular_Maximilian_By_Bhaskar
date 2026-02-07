@@ -1,9 +1,12 @@
 import {
   Component,
+  EventEmitter,
   Input,
+  Output,
   Signal,
   computed,
   input,
+  output,
   signal,
 } from '@angular/core';
 import { DUMMY_USERS } from '../../dummy-users';
@@ -57,11 +60,14 @@ export class UserComponent {
   */
 
   //Using Input  decorator
+  @Input({ required: true }) id!: String;
   @Input({ required: true }) avatar!: string;
   @Input({ required: true }) name!: string;
-
+  @Output() select = new EventEmitter();
   get imagePath() {
     return 'assets/users/' + this.avatar;
   }
-  onSelectedUser() {}
+  onSelectedUser() {
+    this.select.emit(this.id);
+  }
 }
