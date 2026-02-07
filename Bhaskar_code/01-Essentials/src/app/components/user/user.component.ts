@@ -12,6 +12,18 @@ import {
 import { DUMMY_USERS } from '../../dummy-users';
 
 const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
+
+interface Users {
+  id: string;
+  avatar: string;
+  name: string;
+}
+
+type User = {
+  id: string;
+  avatar: string;
+  name: string;
+};
 @Component({
   selector: 'app-user',
   standalone: true,
@@ -65,13 +77,7 @@ export class UserComponent {
   // @Input({ required: true }) name?: string;
 
   //instead of indiviual input we can use object for input
-  @Input({ required: true }) user?: {
-    id: string;
-    avatar: string;
-    name: string;
-  };
-
-  //@Output() select = new EventEmitter();
+  @Input({ required: true }) user?: Users; //@Output() select = new EventEmitter();
 
   //Using output emitter
   select = output<any>();
