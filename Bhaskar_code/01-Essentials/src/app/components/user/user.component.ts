@@ -1,4 +1,11 @@
-import { Component, Input, Signal, computed, signal } from '@angular/core';
+import {
+  Component,
+  Input,
+  Signal,
+  computed,
+  input,
+  signal,
+} from '@angular/core';
 import { DUMMY_USERS } from '../../dummy-users';
 
 const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
@@ -10,9 +17,6 @@ const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
   styleUrl: './user.component.css',
 })
 export class UserComponent {
-  @Input({ required: true }) avatar!: string;
-  @Input({ required: true }) name!: string;
-
   //traditional way of initializing a property
   /*
 
@@ -40,10 +44,24 @@ export class UserComponent {
   }
 */
 
+  /*
+
   //Using Input  decorator
+  @Input({ required: true }) avatar!: string;
+  @Input({ required: true }) name!: string;
+
   get imagePath() {
     return 'assets/users/' + this.avatar;
   }
+   
+  */
 
+  //Using input decorator by decorator
+  avatar = input.required();
+  name = input.required();
+
+  imagePath = computed(() => {
+    return 'assets/users/' + this.avatar();
+  });
   onSelectedUser() {}
 }
