@@ -60,14 +60,14 @@ export class UserComponent {
   */
 
   //Using Input  decorator
-  @Input({ required: true }) id!: String;
-  @Input({ required: true }) avatar!: string;
-  @Input({ required: true }) name!: string;
+  @Input({ required: true }) id?: String;
+  @Input({ required: true }) avatar?: string;
+  @Input({ required: true }) name?: string;
 
   //@Output() select = new EventEmitter();
 
   //Using output emitter
-  select = output<String>();
+  select = output<any>();
 
   get imagePath() {
     return 'assets/users/' + this.avatar;
