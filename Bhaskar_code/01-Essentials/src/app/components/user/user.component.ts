@@ -60,9 +60,16 @@ export class UserComponent {
   */
 
   //Using Input  decorator
-  @Input({ required: true }) id?: String;
-  @Input({ required: true }) avatar?: string;
-  @Input({ required: true }) name?: string;
+  // @Input({ required: true }) id?: String;
+  // @Input({ required: true }) avatar?: string;
+  // @Input({ required: true }) name?: string;
+
+  //instead of indiviual input we can use object for input
+  @Input({ required: true }) user?: {
+    id: string;
+    avatar: string;
+    name: string;
+  };
 
   //@Output() select = new EventEmitter();
 
@@ -70,9 +77,9 @@ export class UserComponent {
   select = output<any>();
 
   get imagePath() {
-    return 'assets/users/' + this.avatar;
+    return 'assets/users/' + this.user?.avatar;
   }
   onSelectedUser() {
-    this.select.emit(this.id);
+    this.select.emit(this.user?.id);
   }
 }
