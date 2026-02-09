@@ -27,6 +27,8 @@ type User = {
   styleUrl: './user.component.css',
 })
 export class UserComponent {
+  @Input() selected!: boolean;
+
   //traditional way of initializing a property
   /*
 
