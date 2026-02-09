@@ -19,12 +19,12 @@
 </div> -->
 
 <!-- Using input() anotation -->
-<div>
+<!-- <div>
   <button [class.active]="selected" (click)="onSelectedUser()">
     <img [src]="imagePath" [alt]="user?.name" />
     <span>{{ user?.name }} </span>
   </button>
-</div>
+</div> -->
 
 <!-- Using input signals -->
 <!-- <div>
@@ -33,3 +33,10 @@
     <span>{{ name() }} </span>
   </button>
 </div> -->
+
+<app-card>
+  <button [class.active]="selected" (click)="onSelectedUser()">
+    <img [src]="imagePath" [alt]="user?.name" />
+    <span>{{ user?.name }} </span>
+  </button>
+</app-card>
