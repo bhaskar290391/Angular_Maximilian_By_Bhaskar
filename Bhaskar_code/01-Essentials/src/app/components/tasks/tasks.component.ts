@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { TaskComponent } from './task/task.component';
 import { AddNewtask, Task } from './task/task.model';
 import { AddNewTaskComponent } from './add-new-task/add-new-task.component';
+import { TasksService } from './tasks.service';
 
 @Component({
   selector: 'app-tasks',
@@ -13,43 +14,21 @@ import { AddNewTaskComponent } from './add-new-task/add-new-task.component';
 export class TasksComponent {
   // @Input({ required: true }) name!: string;
 
+  constructor(private service: TasksService) {}
+
   //optional types
   @Input() userId?: string;
   @Input() name?: string;
   isAddingNewTask: boolean = false;
 
-  Tasks = [
-    {
-      id: 't1',
-      userId: 'u1',
-      title: 'Master Angular',
-      summary:
-        'Learn all the basic and advanced features of Angular & how to apply them.',
-      dueDate: '2025-12-31',
-    },
-    {
-      id: 't2',
-      userId: 'u3',
-      title: 'Build first prototype',
-      summary: 'Build a first prototype of the online shop website',
-      dueDate: '2024-05-31',
-    },
-    {
-      id: 't3',
-      userId: 'u3',
-      title: 'Prepare issue template',
-      summary:
-        'Prepare and describe an issue template which will help with project management',
-      dueDate: '2024-06-15',
-    },
-  ];
-
   get selectedTask() {
-    return this.Tasks.filter((task) => task.userId === this.userId);
+    return this.service.getTaskByUserId(this.userId!);
+    //this.Tasks.filter((task) => task.userId === this.userId);
   }
 
   onCompleteTask(id: string) {
-    this.Tasks = this.Tasks.filter((task) => task.id !== id);
+    this.service.removedTask(id);
+    //this.Tasks = this.Tasks.filter((task) => task.id !== id);
   }
 
   onStartNewTask() {
@@ -61,13 +40,14 @@ export class TasksComponent {
   }
 
   onAddNewTask(task: AddNewtask) {
-    this.Tasks.push({
-      id: new Date().getTime().toString(),
-      userId: this.userId || '',
-      title: task.title,
-      summary: task.summary,
-      dueDate: task.dueDate,
-    });
+    // this.Tasks.push({
+    //   id: new Date().getTime().toString(),
+    //   userId: this.userId || '',
+    //   title: task.title,
+    //   summary: task.summary,
+    //   dueDate: task.dueDate,
+    // });
+    this.service.addNewTask(task, this.userId!);
     this.isAddingNewTask = false;
   }
 }
