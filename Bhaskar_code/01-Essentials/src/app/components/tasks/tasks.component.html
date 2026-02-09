@@ -6,8 +6,8 @@
     </menu>
   </Header>
   <ul>
-    <li><app-task /></li>
-    <li><app-task /></li>
-    <li><app-task /></li>
+    @for (task of selectedTask; track task.id) {
+      <li><app-task [task]="task" /></li>
+    }
   </ul>
 </section>

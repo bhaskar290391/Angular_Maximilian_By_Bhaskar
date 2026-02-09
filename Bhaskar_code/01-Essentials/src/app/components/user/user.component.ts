@@ -10,14 +10,9 @@ import {
   signal,
 } from '@angular/core';
 import { DUMMY_USERS } from '../../dummy-users';
+import { Users } from './Users.model';
 
 const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
-
-interface Users {
-  id: string;
-  avatar: string;
-  name: string;
-}
 
 type User = {
   id: string;
