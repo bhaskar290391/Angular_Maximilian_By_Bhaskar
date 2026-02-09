@@ -1,6 +1,7 @@
 <app-header></app-header>
 
-<main>
+<!-- Using Latest feature -->
+<!-- <main>
   <ul id="users">
     @for (user of users; track user.id) {
       <li>
@@ -14,4 +15,22 @@
   } @else {
     <p id="fallback">Select a user to see thier tasks</p>
   }
+</main> -->
+
+<!-- Using Legacy NGFor and NGIf -->
+<main>
+  <ul id="users">
+    <li *ngFor="let user of users">
+      <app-user [user]="user" (select)="onSelectUser($event)" />
+    </li>
+  </ul>
+
+  <app-tasks
+    *ngIf="selectUser; else fallback"
+    [name]="selectUser ? selectUser.name : ''"
+  ></app-tasks>
+
+  <ng-template #fallback>
+    <p id="fallback">Select a user to see thier tasks</p>
+  </ng-template>
 </main>
