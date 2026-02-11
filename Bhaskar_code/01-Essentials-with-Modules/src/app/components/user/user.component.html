@@ -1,0 +1,42 @@
+<!-- TRaditional way of user -->
+<!-- 
+
+<div>
+  <button (click)="onSelectedUser()">
+    <img [src]="imagePath" [alt]="selectedUser.name" />
+    <span>{{ selectedUser.name }} </span>
+  </button>
+</div> 
+
+-->
+
+<!-- Signal -->
+<!-- <div>
+  <button (click)="onSelectedUser()">
+    <img [src]="imagePath()" [alt]="selectedUser().name" />
+    <span>{{ selectedUser().name }} </span>
+  </button>
+</div> -->
+
+<!-- Using input() anotation -->
+<!-- <div>
+  <button [class.active]="selected" (click)="onSelectedUser()">
+    <img [src]="imagePath" [alt]="user?.name" />
+    <span>{{ user?.name }} </span>
+  </button>
+</div> -->
+
+<!-- Using input signals -->
+<!-- <div>
+  <button (click)="onSelectedUser()">
+    <img [src]="imagePath()" [alt]="name()" />
+    <span>{{ name() }} </span>
+  </button>
+</div> -->
+
+<app-card>
+  <button [class.active]="selected" (click)="onSelectedUser()">
+    <img [src]="imagePath" [alt]="user?.name" />
+    <span>{{ user?.name }} </span>
+  </button>
+</app-card>
