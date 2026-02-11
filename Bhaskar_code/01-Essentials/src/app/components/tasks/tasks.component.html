@@ -12,7 +12,8 @@
   </Header>
   <ul>
     @for (task of selectedTask; track task.id) {
-      <li><app-task [task]="task" (complete)="onCompleteTask($event)" /></li>
+      <!-- <li><app-task [task]="task" (complete)="onCompleteTask($event)" /></li> -->
+      <li><app-task [task]="task" /></li>
     }
   </ul>
 </section>
