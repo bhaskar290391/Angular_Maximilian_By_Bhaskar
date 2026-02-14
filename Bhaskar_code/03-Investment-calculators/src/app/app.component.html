@@ -1,4 +1,12 @@
 <app-header></app-header>
-<app-user-input (calculate)="calculateInvestmentResults($event)" />
+
+<!-- Using parant child relationship -->
+<!-- <app-user-input (calculate)="calculateInvestmentResults($event)" /> -->
 <!-- <app-investment-result [result]="resultData" /> -->
-<app-investment-result [result]="resultData()" />
+
+<!-- using signal -->
+<!-- <app-investment-result [result]="resultData()" /> -->
+
+<!-- Using service -->
+<app-user-input></app-user-input>
+<app-investment-result />
