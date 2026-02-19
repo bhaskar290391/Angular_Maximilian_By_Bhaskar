@@ -1,3 +1,10 @@
+@if (errors()) {
+  <app-error-modal
+    title="A error occured"
+    [message]="errors()"
+  ></app-error-modal>
+}
+
 <header>
   <img src="logo.png" alt="Stylized globe" />
   <h1>PlacePicker</h1>

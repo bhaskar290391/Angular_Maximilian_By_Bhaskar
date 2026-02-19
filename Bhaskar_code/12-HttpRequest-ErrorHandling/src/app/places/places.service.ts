@@ -3,6 +3,7 @@ import { Injectable, signal } from '@angular/core';
 import { Place } from './place.model';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map, tap, throwError } from 'rxjs';
+import { ErrorService } from '../shared/error.service';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +11,10 @@ import { catchError, map, tap, throwError } from 'rxjs';
 export class PlacesService {
   private userPlaces = signal<Place[]>([]);
   loadedUserPlaces = this.userPlaces.asReadonly();
-  constructor(private httpclient: HttpClient) {}
+  constructor(
+    private httpclient: HttpClient,
+    private errorService: ErrorService,
+  ) {}
 
   loadAvailablePlaces() {
     return this.fetchPlaces(
@@ -27,13 +31,52 @@ export class PlacesService {
   }
 
   addPlaceToUserPlaces(place: Place) {
-    this.userPlaces.update((prev) => [...prev, place]);
-    return this.httpclient.put('http://localhost:3000/user-places', {
-      placeId: place.id,
-    });
+    const prevPlace = this.userPlaces();
+
+    if (!prevPlace.some((prev) => prev.id === place.id)) {
+      this.userPlaces.set([...prevPlace, place]);
+    }
+
+    return this.httpclient
+      .put('http://localhost:3000/user-places', {
+        placeId: place.id,
+      })
+      .pipe(
+        catchError((error) => {
+          this.userPlaces.set(prevPlace);
+          console.log('Error while adding place into favourite');
+          this.errorService.showError(
+            'Error while adding place into favourite',
+          );
+          return throwError(
+            () => new Error('Error while adding place into favourite'),
+          );
+        }),
+      );
   }
 
-  removeUserPlace(place: Place) {}
+  removeUserPlace(place: Place) {
+    const prevPlace = this.userPlaces();
+
+    if (prevPlace.some((prev) => prev.id === place.id)) {
+      this.userPlaces.set(prevPlace.filter((data) => data.id !== place.id));
+    }
+
+    return this.httpclient
+      .delete('http://localhost:3000/user-places/' + place.id)
+      .pipe(
+        catchError((error) => {
+          this.userPlaces.set(prevPlace);
+          console.log('Error while deleting place from favourite');
+          this.errorService.showError(
+            'Error while deleting place from favourite',
+          );
+          return throwError(
+            () => new Error('Error while removing place into favourite'),
+          );
+        }),
+      );
+  }
 
   private fetchPlaces(url: string, message: string) {
     return this.httpclient.get<{ places: Place[] }>(url).pipe(
