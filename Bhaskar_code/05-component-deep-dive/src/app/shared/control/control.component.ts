@@ -1,5 +1,7 @@
 import {
   AfterContentInit,
+  afterNextRender,
+  afterRender,
   Component,
   ContentChild,
   contentChild,
@@ -24,6 +26,15 @@ import {
   },
 })
 export class ControlComponent implements AfterContentInit {
+  constructor() {
+    afterRender(() => {
+      console.log('after Render !!!');
+    });
+
+    afterNextRender(() => {
+      console.log('after Next Render !!!');
+    });
+  }
   ngAfterContentInit(): void {
     console.log('Control componet initialized');
     console.log(this.input?.nativeElement);
