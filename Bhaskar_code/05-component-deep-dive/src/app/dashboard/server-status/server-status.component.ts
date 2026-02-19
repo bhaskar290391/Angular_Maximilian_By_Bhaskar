@@ -23,9 +23,15 @@ export class ServerStatusComponent implements OnInit {
   private destroyRef = inject(DestroyRef);
 
   constructor() {
-    effect(() => {
-      console.log(this.currentStatus());
-    });
+    // create the effect inside a proper injection context and make sure it is
+    // torn down automatically when the component is destroyed
+    effect(
+      () => {
+        // reading the signal registers a dependency; every time the signal
+        // changes the body will rerun and log the new value
+        console.log('status changed:', this.currentStatus());
+      }, // ensures cleanup with the DestroyRef
+    );
   }
 
   ngOnInit() {
