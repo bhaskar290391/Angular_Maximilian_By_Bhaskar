@@ -20,6 +20,9 @@ import { FormsModule } from '@angular/forms';
   imports: [ControlComponent, ButtonComponent, FormsModule],
 })
 export class NewTicketComponent implements OnInit, AfterViewInit {
+  enteredInput = '';
+  enteredTextArea = '';
+
   @Output() add = new EventEmitter<{ title: string; request: string }>();
 
   ngOnInit(): void {
@@ -38,11 +41,11 @@ export class NewTicketComponent implements OnInit, AfterViewInit {
 
   // form = viewChild.required<ElementRef<HTMLFormElement>>('form');
 
-  OnSubmit(input: string, texterea: string) {
-    console.log('Clicked !!!' + input + ' ==> ' + texterea);
-
-    this.add.emit({ title: input, request: texterea });
+  OnSubmit() {
+    this.add.emit({ title: this.enteredInput, request: this.enteredTextArea });
     //this.form()?.nativeElement.reset();
-    this.form?.nativeElement.reset();
+    //this.form?.nativeElement.reset();
+    this.enteredInput = '';
+    this.enteredTextArea = '';
   }
 }

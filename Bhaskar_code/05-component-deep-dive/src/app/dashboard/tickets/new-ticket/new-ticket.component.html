@@ -1,6 +1,13 @@
-<form (ngSubmit)="OnSubmit(textInput.value, textInputArea.value)" #form>
+<!-- <form (ngSubmit)="OnSubmit(textInput.value, textInputArea.value)" #form> -->
+<form (ngSubmit)="OnSubmit()" #form>
   <app-control lable="Title">
-    <input type="text" name="title" id="title" #textInput #input />
+    <input
+      type="text"
+      name="title"
+      id="title"
+      #input
+      [(ngModel)]="enteredInput"
+    />
   </app-control>
 
   <app-control lable="Request">
@@ -8,8 +15,8 @@
       name="request"
       id="request"
       rows="3"
-      #textInputArea
       #input
+      [(ngModel)]="enteredTextArea"
     ></textarea>
   </app-control>
 
