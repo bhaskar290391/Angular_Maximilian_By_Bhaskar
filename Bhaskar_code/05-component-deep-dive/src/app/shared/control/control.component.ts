@@ -1,5 +1,7 @@
 import {
   Component,
+  ContentChild,
+  contentChild,
   ElementRef,
   HostBinding,
   HostListener,
@@ -30,8 +32,17 @@ export class ControlComponent {
   //   console.log('Clickedd !!!');
   // }
 
+  // @ContentChild('input') private input?: ElementRef<
+  //   HTMLInputElement | HTMLTextAreaElement
+  // >;
+
+  private input = contentChild.required<HTMLInputElement | HTMLTextAreaElement>(
+    'input',
+  );
+
   onclick() {
     console.log('Clickedd !!!');
     console.log(this.el);
+    console.log(this.input());
   }
 }
