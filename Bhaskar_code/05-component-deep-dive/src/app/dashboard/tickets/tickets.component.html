@@ -1,7 +1,12 @@
 <div>
   <ul>
     @for (ticketData of tickets; track ticketData.id) {
-      <li><app-ticket [ticket]="ticketData"></app-ticket></li>
+      <li>
+        <app-ticket
+          [ticket]="ticketData"
+          (close)="OnChangeStatus(ticketData.id)"
+        ></app-ticket>
+      </li>
     } @empty {
       No Data Found
     }

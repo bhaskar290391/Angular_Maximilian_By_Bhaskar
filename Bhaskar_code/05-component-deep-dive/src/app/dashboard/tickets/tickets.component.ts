@@ -23,4 +23,14 @@ export class TicketsComponent {
 
     this.tickets.push(dataInput);
   }
+
+  OnChangeStatus(id: string) {
+    console.log('Changes status ');
+    this.tickets = this.tickets.map((ticket) => {
+      if (ticket.id === id) {
+        return { ...ticket, status: 'Closed' };
+      }
+      return ticket;
+    });
+  }
 }
