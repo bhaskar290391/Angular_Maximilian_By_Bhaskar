@@ -1,4 +1,11 @@
-import { Component, ElementRef, viewChild, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnInit,
+  viewChild,
+  ViewChild,
+} from '@angular/core';
 import { ButtonComponent } from '../../../shared/button/button.component';
 import { ControlComponent } from '../../../shared/control/control.component';
 import { FormsModule } from '@angular/forms';
@@ -10,13 +17,26 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './new-ticket.component.css',
   imports: [ControlComponent, ButtonComponent, FormsModule],
 })
-export class NewTicketComponent {
-  // @ViewChild('form') form?: ElementRef<HTMLFormElement>;
+export class NewTicketComponent implements OnInit, AfterViewInit {
+  ngOnInit(): void {
+    // Component initialization logic
+    console.log('NewTicketComponent initialized');
+    console.log(this.form?.nativeElement);
+  }
 
-  form = viewChild.required<ElementRef<HTMLFormElement>>('form');
+  ngAfterViewInit(): void {
+    // Form reference is now available via viewChild signal
+    console.log('Component initialized, form reference available');
+    console.log(this.form?.nativeElement);
+  }
+
+  @ViewChild('form') form?: ElementRef<HTMLFormElement>;
+
+  // form = viewChild.required<ElementRef<HTMLFormElement>>('form');
 
   OnSubmit(input: string, texterea: string) {
     console.log('Clicked !!!' + input + ' ==> ' + texterea);
-    this.form()?.nativeElement.reset();
+    //this.form()?.nativeElement.reset();
+    this.form?.nativeElement.reset();
   }
 }

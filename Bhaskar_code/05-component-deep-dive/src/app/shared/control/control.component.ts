@@ -1,4 +1,5 @@
 import {
+  AfterContentInit,
   Component,
   ContentChild,
   contentChild,
@@ -22,7 +23,11 @@ import {
     '(click)': 'onclick()',
   },
 })
-export class ControlComponent {
+export class ControlComponent implements AfterContentInit {
+  ngAfterContentInit(): void {
+    console.log('Control componet initialized');
+    console.log(this.input?.nativeElement);
+  }
   @Input({ required: true }) lable!: string;
 
   private el = inject(ElementRef);
@@ -32,17 +37,18 @@ export class ControlComponent {
   //   console.log('Clickedd !!!');
   // }
 
-  // @ContentChild('input') private input?: ElementRef<
-  //   HTMLInputElement | HTMLTextAreaElement
-  // >;
+  @ContentChild('input') private input?: ElementRef<
+    HTMLInputElement | HTMLTextAreaElement
+  >;
 
-  private input = contentChild.required<HTMLInputElement | HTMLTextAreaElement>(
-    'input',
-  );
+  // private input = contentChild.required<HTMLInputElement | HTMLTextAreaElement>(
+  //   'input',
+  // );
 
   onclick() {
     console.log('Clickedd !!!');
     console.log(this.el);
-    console.log(this.input());
+    // console.log(this.input());
+    console.log(this.input);
   }
 }
