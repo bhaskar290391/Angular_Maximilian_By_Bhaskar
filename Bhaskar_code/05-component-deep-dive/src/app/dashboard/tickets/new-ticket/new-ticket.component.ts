@@ -2,7 +2,9 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  EventEmitter,
   OnInit,
+  Output,
   viewChild,
   ViewChild,
 } from '@angular/core';
@@ -18,6 +20,8 @@ import { FormsModule } from '@angular/forms';
   imports: [ControlComponent, ButtonComponent, FormsModule],
 })
 export class NewTicketComponent implements OnInit, AfterViewInit {
+  @Output() add = new EventEmitter<{ title: string; request: string }>();
+
   ngOnInit(): void {
     // Component initialization logic
     console.log('NewTicketComponent initialized');
@@ -36,6 +40,8 @@ export class NewTicketComponent implements OnInit, AfterViewInit {
 
   OnSubmit(input: string, texterea: string) {
     console.log('Clicked !!!' + input + ' ==> ' + texterea);
+
+    this.add.emit({ title: input, request: texterea });
     //this.form()?.nativeElement.reset();
     this.form?.nativeElement.reset();
   }
