@@ -3,8 +3,7 @@ import { Component, DestroyRef, Inject, OnInit, signal } from '@angular/core';
 import { Place } from '../place.model';
 import { PlacesComponent } from '../places.component';
 import { PlacesContainerComponent } from '../places-container/places-container.component';
-import { HttpClient } from '@angular/common/http';
-import { catchError, map, throwError } from 'rxjs';
+import { PlacesService } from '../places.service';
 
 @Component({
   selector: 'app-available-places',
@@ -17,36 +16,26 @@ export class AvailablePlacesComponent implements OnInit {
   places = signal<Place[] | undefined>(undefined);
   isFetching = signal(false);
   error = signal('');
+
   constructor(
-    private httpclient: HttpClient,
     private destroyRef: DestroyRef,
+    private placeService: PlacesService,
   ) {}
 
   ngOnInit(): void {
     this.isFetching.set(true);
-    const subscription = this.httpclient
-      .get<{ places: Place[] }>('http://localhost:3000/places')
-      .pipe(
-        map((data) => data.places),
-        catchError((error) => {
-          console.log(error);
-          return throwError(
-            () => new Error('Something Went wrong please try again later .!!!'),
-          );
-        }),
-      )
-      .subscribe({
-        next: (response) => {
-          this.places.set(response);
-        },
+    const subscription = this.placeService.loadAvailablePlaces().subscribe({
+      next: (response) => {
+        this.places.set(response);
+      },
 
-        error: (error: Error) => {
-          this.error.set(error.message);
-        },
-        complete: () => {
-          this.isFetching.set(false);
-        },
-      });
+      error: (error: Error) => {
+        this.error.set(error.message);
+      },
+      complete: () => {
+        this.isFetching.set(false);
+      },
+    });
 
     this.destroyRef.onDestroy(() => {
       subscription.unsubscribe();
@@ -54,12 +43,10 @@ export class AvailablePlacesComponent implements OnInit {
   }
 
   onSelectplace(selectedPlace: Place) {
-    this.httpclient
-      .put('http://localhost:3000/user-places', { placeId: selectedPlace.id })
-      .subscribe({
-        next: (response: any) => {
-          console.log(response);
-        },
-      });
+    this.placeService.addPlaceToUserPlaces(selectedPlace).subscribe({
+      next: (response: any) => {
+        console.log(response);
+      },
+    });
   }
 }
