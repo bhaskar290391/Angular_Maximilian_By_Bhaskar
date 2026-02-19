@@ -5,6 +5,8 @@ import {
   OnDestroy,
   DestroyRef,
   inject,
+  signal,
+  effect,
 } from '@angular/core';
 
 @Component({
@@ -15,22 +17,27 @@ import {
   styleUrl: './server-status.component.css',
 })
 export class ServerStatusComponent implements OnInit {
-  currentStatus: 'online' | 'offline' | 'unknown' = 'offline';
+  //currentStatus: 'online' | 'offline' | 'unknown' = 'offline';
+  currentStatus = signal<'online' | 'offline' | 'unknown'>('offline');
   private interval?: ReturnType<typeof setInterval>;
   private destroyRef = inject(DestroyRef);
 
-  constructor() {}
+  constructor() {
+    effect(() => {
+      console.log(this.currentStatus());
+    });
+  }
 
   ngOnInit() {
     this.interval = setInterval(() => {
       const data = Math.random();
 
       if (data < 0.5) {
-        this.currentStatus = 'online';
+        this.currentStatus.set('online');
       } else if (data < 0.9) {
-        this.currentStatus = 'offline';
+        this.currentStatus.set('offline');
       } else {
-        this.currentStatus = 'unknown';
+        this.currentStatus.set('unknown');
       }
     }, 5000);
 
