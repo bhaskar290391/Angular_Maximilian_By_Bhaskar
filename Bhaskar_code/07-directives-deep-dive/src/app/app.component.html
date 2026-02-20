@@ -1,0 +1,13 @@
+<main>
+  <app-learning-resources />
+
+  <hr />
+
+  <app-auth />
+
+  <p *ngIf="isAdmin()">Login user is admin role</p>
+
+  @if (isAdmin()) {
+    <p>Login user is admin role</p>
+  }
+</main>
