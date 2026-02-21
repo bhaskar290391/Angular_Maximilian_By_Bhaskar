@@ -4,10 +4,12 @@
   <hr />
 
   <app-auth />
+  <!-- 
+  <p *ngIf="isAdmin()">Login user is admin role</p> -->
 
-  <p *ngIf="isAdmin()">Login user is admin role</p>
-
-  @if (isAdmin()) {
+  <!-- @if (isAdmin()) {
     <p>Login user is admin role</p>
-  }
+  } -->
+
+  <p appAuth="user">Login user is admin role</p>
 </main>
