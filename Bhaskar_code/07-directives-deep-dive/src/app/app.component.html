@@ -11,7 +11,17 @@
     <p>Login user is admin role</p>
   } -->
 
-  <ng-template appAuth="admin">
+  <!-- <ng-template appAuth="admin">
     <p>Login user is admin role</p>
-  </ng-template>
+  </ng-template> -->
+
+  <p *appAuth="'admin'" class="protected-content admin">
+    Login user is admin role
+  </p>
+  <p *appAuth="'user'" class="protected-content unathenticated">
+    Login user is user role
+  </p>
+  <p *appAuth="'guest'" class="protected-content authenticated">
+    Login user is guest role
+  </p>
 </main>
