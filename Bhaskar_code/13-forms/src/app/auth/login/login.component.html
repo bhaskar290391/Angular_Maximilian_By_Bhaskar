@@ -30,7 +30,11 @@
 
     <button class="button">Login</button>
   </div>
-  @if (email.touched && password.touched && bhaskar.form.invalid) {
-    <p>Input is invalid and please check the input</p>
+  @if (email.touched && email.dirty && email.invalid) {
+    <p class="control-error">Email is invalid and please check the input</p>
+  }
+
+  @if (password.touched && password.dirty && password.invalid) {
+    <p class="control-error">Password invalid and please check the input</p>
   }
 </form>
